@@ -36,7 +36,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 						.anyRequest().authenticated()
 				)
 				.httpBasic(withDefaults())

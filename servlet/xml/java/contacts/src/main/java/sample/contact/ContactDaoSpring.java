@@ -31,7 +31,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 public class ContactDaoSpring extends JdbcDaoSupport implements ContactDao {
 
 	public void create(final Contact contact) {
-		getJdbcTemplate().update("insert into contacts values (?, ?, ?)", (ps) -> {
+		getJdbcTemplate().update("insert into contacts values (?, ?, ?)", ps -> {
 			ps.setLong(1, contact.getId());
 			ps.setString(2, contact.getName());
 			ps.setString(3, contact.getEmail());
@@ -39,11 +39,11 @@ public class ContactDaoSpring extends JdbcDaoSupport implements ContactDao {
 	}
 
 	public void delete(final Long contactId) {
-		getJdbcTemplate().update("delete from contacts where id = ?", (ps) -> ps.setLong(1, contactId));
+		getJdbcTemplate().update("delete from contacts where id = ?", ps -> ps.setLong(1, contactId));
 	}
 
 	public void update(final Contact contact) {
-		getJdbcTemplate().update("update contacts set contact_name = ?, address = ? where id = ?", (ps) -> {
+		getJdbcTemplate().update("update contacts set contact_name = ?, address = ? where id = ?", ps -> {
 			ps.setString(1, contact.getName());
 			ps.setString(2, contact.getEmail());
 			ps.setLong(3, contact.getId());
@@ -69,7 +69,7 @@ public class ContactDaoSpring extends JdbcDaoSupport implements ContactDao {
 				"select id, contact_name, email from contacts where id = ? order by id", (rs, rowNum) -> mapContact(rs),
 				id);
 
-		if (list.size() == 0) {
+		if (list.isEmpty()) {
 			return null;
 		}
 		else {

@@ -64,13 +64,13 @@ public class SecurityConfig {
 		casGatewayAuthenticationRedirectFilter.setRequestMatcher(new AndRequestMatcher(
 				builder.pattern("/public"), new CasGatewayResolverRequestMatcher(serviceProperties())));
 		http
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.GET, "/loggedout").permitAll()
 						.requestMatchers("/public").permitAll()
 						.anyRequest().authenticated()
 				)
-				.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(casAuthenticationEntryPoint()))
-				.logout((logout) -> logout.logoutSuccessUrl("/loggedout"))
+				.exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(casAuthenticationEntryPoint()))
+				.logout(logout -> logout.logoutSuccessUrl("/loggedout"))
 				.addFilter(casAuthenticationFilter(userDetailsService))
 				.addFilterBefore(new SingleSignOutFilter(), CasAuthenticationFilter.class)
 				.addFilterAfter(casGatewayAuthenticationRedirectFilter, CasAuthenticationFilter.class);

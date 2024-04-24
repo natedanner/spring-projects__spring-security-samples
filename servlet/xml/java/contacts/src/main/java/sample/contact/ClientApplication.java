@@ -93,7 +93,7 @@ public class ClientApplication {
 
 			stopWatch.stop();
 
-			if (contacts.size() != 0) {
+			if (!contacts.isEmpty()) {
 				for (Contact contact : contacts) {
 					System.out.println("Contact: " + contact);
 				}

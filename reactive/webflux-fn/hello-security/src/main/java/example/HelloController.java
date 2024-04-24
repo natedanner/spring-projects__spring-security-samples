@@ -39,7 +39,7 @@ public class HelloController {
 	public Mono<ServerResponse> hello(ServerRequest serverRequest) {
 		return serverRequest.principal()
 			.map(Principal::getName)
-			.flatMap((username) ->
+			.flatMap(username ->
 				ServerResponse.ok()
 					.contentType(MediaType.APPLICATION_JSON)
 					.bodyValue(Collections.singletonMap("message", "Hello " + username + "!"))

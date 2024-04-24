@@ -47,7 +47,7 @@ public class OAuth2ResourceServerControllerTests {
 	@Test
 	void indexGreetsAuthenticatedUser() throws Exception {
 		// @formatter:off
-		this.mockMvc.perform(get("/").with(jwt().jwt((jwt) -> jwt.subject("ch4mpy"))))
+		this.mockMvc.perform(get("/").with(jwt().jwt(jwt -> jwt.subject("ch4mpy"))))
 				.andExpect(content().string(is("Hello, ch4mpy!")));
 		// @formatter:on
 	}
@@ -55,10 +55,10 @@ public class OAuth2ResourceServerControllerTests {
 	@Test
 	void messageCanBeReadWithScopeMessageReadAuthority() throws Exception {
 		// @formatter:off
-		this.mockMvc.perform(get("/message").with(jwt().jwt((jwt) -> jwt.claim("scope", "message:read"))))
+		this.mockMvc.perform(get("/message").with(jwt().jwt(jwt -> jwt.claim("scope", "message:read"))))
 				.andExpect(content().string(is("secret message")));
 
-		this.mockMvc.perform(get("/message").with(jwt().authorities(new SimpleGrantedAuthority(("SCOPE_message:read")))))
+		this.mockMvc.perform(get("/message").with(jwt().authorities(new SimpleGrantedAuthority("SCOPE_message:read"))))
 				.andExpect(content().string(is("secret message")));
 		// @formatter:on
 	}
@@ -86,7 +86,7 @@ public class OAuth2ResourceServerControllerTests {
 		// @formatter:off
 		this.mockMvc.perform(post("/message")
 				.content("Hello message")
-				.with(jwt().jwt((jwt) -> jwt.claim("scope", "message:read"))))
+				.with(jwt().jwt(jwt -> jwt.claim("scope", "message:read"))))
 				.andExpect(status().isForbidden());
 		// @formatter:on
 	}
@@ -96,7 +96,7 @@ public class OAuth2ResourceServerControllerTests {
 		// @formatter:off
 		this.mockMvc.perform(post("/message")
 				.content("Hello message")
-				.with(jwt().jwt((jwt) -> jwt.claim("scope", "message:write"))))
+				.with(jwt().jwt(jwt -> jwt.claim("scope", "message:write"))))
 				.andExpect(status().isOk())
 				.andExpect(content().string(is("Message was created. Content: Hello message")));
 		// @formatter:on

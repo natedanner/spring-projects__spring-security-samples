@@ -48,11 +48,11 @@ public class OAuth2ResourceServerSecurityConfiguration {
 			AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) throws Exception {
 		// @formatter:off
 		http
-			.authorizeHttpRequests((authorize) -> authorize
+			.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/**/message/**").hasAuthority("SCOPE_message:read")
 				.anyRequest().authenticated()
 			)
-			.oauth2ResourceServer((oauth2) -> oauth2
+			.oauth2ResourceServer(oauth2 -> oauth2
 				.authenticationManagerResolver(authenticationManagerResolver)
 			);
 		// @formatter:on
@@ -66,9 +66,9 @@ public class OAuth2ResourceServerSecurityConfiguration {
 		Map<String, AuthenticationManager> authenticationManagers = new HashMap<>();
 		authenticationManagers.put("tenantOne", jwt(jwtDecoder));
 		authenticationManagers.put("tenantTwo", opaque(opaqueTokenIntrospector));
-		return (request) -> {
+		return request -> {
 			String[] pathParts = request.getRequestURI().split("/");
-			String tenantId = (pathParts.length > 0) ? pathParts[1] : null;
+			String tenantId = pathParts.length > 0 ? pathParts[1] : null;
 			// @formatter:off
 			return Optional.ofNullable(tenantId)
 					.map(authenticationManagers::get)

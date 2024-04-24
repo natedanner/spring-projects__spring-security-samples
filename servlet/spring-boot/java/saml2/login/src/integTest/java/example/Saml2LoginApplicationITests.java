@@ -69,16 +69,14 @@ public class Saml2LoginApplicationITests {
 		List<String> urls = new ArrayList<>();
 		urls.add(loginPage.getUrl().getFile());
 		urls.add(((HtmlPage) this.webClient.getCurrentWindow().getEnclosedPage()).getUrl().getFile());
-		assertThat(urls).withFailMessage(() -> {
+		assertThat(urls).withFailMessage(() ->
 			// @formatter:off
-			String builder = loginPage.asXml()
+			// @formatter:on
+			loginPage.asXml()
 					+ "\n\n\n"
 					+ "Enclosing Page"
 					+ "\n\n\n"
-					+ ((HtmlPage) this.webClient.getCurrentWindow().getEnclosedPage()).asXml();
-			// @formatter:on
-			return builder;
-		}).contains("/login?logout");
+					+ ((HtmlPage) this.webClient.getCurrentWindow().getEnclosedPage()).asXml()).contains("/login?logout");
 	}
 
 	private void performLogin() throws Exception {
@@ -97,7 +95,7 @@ public class Saml2LoginApplicationITests {
 	private HtmlForm findForm(HtmlPage login) {
 		for (HtmlForm form : login.getForms()) {
 			try {
-				if (form.getId().equals("form19")) {
+				if ("form19".equals(form.getId())) {
 					return form;
 				}
 			}

@@ -54,7 +54,7 @@ public class WebfluxX509ApplicationITest {
 			.exchange()
 			.expectStatus().isOk()
 			.expectBody()
-			.consumeWith((result) -> {
+			.consumeWith(result -> {
 				String responseBody = new String(result.getResponseBody());
 				assertThat(responseBody).contains("Hello, client");
 			});
@@ -83,7 +83,7 @@ public class WebfluxX509ApplicationITest {
 		// @formatter:on
 
 		HttpClient httpClient = HttpClient.create()
-			.secure((sslContextSpec) -> sslContextSpec.sslContext(sslContextBuilder));
+			.secure(sslContextSpec -> sslContextSpec.sslContext(sslContextBuilder));
 		ClientHttpConnector httpConnector = new ReactorClientHttpConnector(httpClient);
 
 		// @formatter:off

@@ -48,7 +48,7 @@ public class OAuth2ResourceServerControllerTests {
 	@Test
 	void indexGreetsAuthenticatedUser() {
 		// @formatter:off
-		this.rest.mutateWith(mockJwt().jwt((jwt) -> jwt.subject("test-subject")))
+		this.rest.mutateWith(mockJwt().jwt(jwt -> jwt.subject("test-subject")))
 			.get()
 			.uri("/")
 			.exchange()
@@ -59,7 +59,7 @@ public class OAuth2ResourceServerControllerTests {
 	@Test
 	void messageCanBeReadWithScopeMessageReadAuthority() {
 		// @formatter:off
-		this.rest.mutateWith(mockJwt().jwt((jwt) -> jwt.claim("scope", "message:read")))
+		this.rest.mutateWith(mockJwt().jwt(jwt -> jwt.claim("scope", "message:read")))
 			.get()
 			.uri("/message")
 			.exchange()
@@ -91,7 +91,7 @@ public class OAuth2ResourceServerControllerTests {
 		// @formatter:off
 		this.rest.post()
 			.uri("/message")
-			.headers((headers) -> headers.setBearerAuth(jwt.getTokenValue()))
+			.headers(headers -> headers.setBearerAuth(jwt.getTokenValue()))
 			.bodyValue("Hello message")
 			.exchange()
 			.expectStatus().isForbidden();
@@ -105,7 +105,7 @@ public class OAuth2ResourceServerControllerTests {
 		// @formatter:off
 		this.rest.post()
 			.uri("/message")
-			.headers((headers) -> headers.setBearerAuth(jwt.getTokenValue()))
+			.headers(headers -> headers.setBearerAuth(jwt.getTokenValue()))
 			.bodyValue("Hello message")
 			.exchange()
 			.expectStatus().isForbidden();
@@ -119,7 +119,7 @@ public class OAuth2ResourceServerControllerTests {
 		// @formatter:off
 		this.rest.post()
 			.uri("/message")
-			.headers((headers) -> headers.setBearerAuth(jwt.getTokenValue()))
+			.headers(headers -> headers.setBearerAuth(jwt.getTokenValue()))
 			.bodyValue("Hello message")
 			.exchange()
 			.expectStatus().isOk()

@@ -41,7 +41,7 @@ public class SecurityConfiguration {
 	SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) {
 		// @formatter:off
 		http
-			.authorizeExchange((authorize) -> authorize
+			.authorizeExchange(authorize -> authorize
 				.anyExchange().authenticated()
 			)
 			.formLogin(withDefaults());

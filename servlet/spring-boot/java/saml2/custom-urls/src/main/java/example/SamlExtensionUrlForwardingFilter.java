@@ -52,7 +52,7 @@ public class SamlExtensionUrlForwardingFilter extends OncePerRequestFilter {
 	private RequestMatcher createRequestMatcher() {
 		Set<String> urls = urlMapping.keySet();
 		List<RequestMatcher> matchers = new LinkedList<>();
-		urls.forEach((url) -> matchers.add(new AntPathRequestMatcher(url)));
+		urls.forEach(url -> matchers.add(new AntPathRequestMatcher(url)));
 		return new OrRequestMatcher(matchers);
 	}
 

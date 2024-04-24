@@ -37,7 +37,7 @@ public class DataApplication {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static Customizer<AuthorizationAdvisorProxyFactory> skipValueTypes() {
-		return (f) -> f.setTargetVisitor(TargetVisitor.defaultsSkipValueTypes());
+		return f -> f.setTargetVisitor(TargetVisitor.defaultsSkipValueTypes());
 	}
 
 	@Bean

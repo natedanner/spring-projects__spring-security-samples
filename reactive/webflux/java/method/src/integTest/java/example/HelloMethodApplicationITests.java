@@ -96,11 +96,11 @@ public class HelloMethodApplicationITests {
 	}
 
 	private Consumer<HttpHeaders> userCredentials() {
-		return (httpHeaders) -> httpHeaders.setBasicAuth("user", "password");
+		return httpHeaders -> httpHeaders.setBasicAuth("user", "password");
 	}
 
 	private Consumer<HttpHeaders> adminCredentials() {
-		return (httpHeaders) -> httpHeaders.setBasicAuth("admin", "password");
+		return httpHeaders -> httpHeaders.setBasicAuth("admin", "password");
 	}
 
 }

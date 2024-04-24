@@ -168,7 +168,7 @@ public class DataSourcePopulator implements InitializingBean {
 		// Create acl_object_identity rows (and also acl_class rows as needed
 		for (int i = 1; i < this.createEntities; i++) {
 			final ObjectIdentity objectIdentity = new ObjectIdentityImpl(Contact.class, (long) i);
-			this.tt.execute((arg0) -> {
+			this.tt.execute(arg0 -> {
 				this.mutableAclService.createAcl(objectIdentity);
 
 				return null;
@@ -269,7 +269,7 @@ public class DataSourcePopulator implements InitializingBean {
 	}
 
 	private void updateAclInTransaction(final MutableAcl acl) {
-		this.tt.execute((arg0) -> {
+		this.tt.execute(arg0 -> {
 			this.mutableAclService.updateAcl(acl);
 
 			return null;

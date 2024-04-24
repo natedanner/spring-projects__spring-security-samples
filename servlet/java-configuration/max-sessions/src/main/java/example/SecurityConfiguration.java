@@ -38,12 +38,12 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 						.anyRequest().authenticated()
 				)
 				.formLogin(withDefaults())
-				.sessionManagement((sessions) -> sessions
-						.sessionConcurrency((concurrency) -> concurrency
+				.sessionManagement(sessions -> sessions
+						.sessionConcurrency(concurrency -> concurrency
 								.maximumSessions(1)
 								.expiredUrl("/login?expired")
 						)

@@ -48,7 +48,7 @@ public class SecurityConfiguration {
 	SecurityFilterChain app(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
-			.authorizeHttpRequests((authorize) -> authorize
+			.authorizeHttpRequests(authorize -> authorize
 				.anyRequest().authenticated()
 			)
 			.saml2Login(Customizer.withDefaults())
@@ -61,7 +61,7 @@ public class SecurityConfiguration {
 	@Bean
 	RelyingPartyRegistrationResolver relyingPartyRegistrationResolver(
 			RelyingPartyRegistrationRepository registrations) {
-		return new DefaultRelyingPartyRegistrationResolver((id) -> registrations.findByRegistrationId("two"));
+		return new DefaultRelyingPartyRegistrationResolver(id -> registrations.findByRegistrationId("two"));
 	}
 
 	@Bean
@@ -84,7 +84,7 @@ public class SecurityConfiguration {
 		RelyingPartyRegistration two = RelyingPartyRegistrations
 			.fromMetadataLocation("https://dev-05937739.okta.com/app/exk4842vmapcMkohr5d7/sso/saml/metadata")
 			.registrationId("two")
-			.signingX509Credentials((c) -> c.add(signing))
+			.signingX509Credentials(c -> c.add(signing))
 			.singleLogoutServiceLocation("http://localhost:8080/logout/saml2/slo")
 			.build();
 		return new InMemoryRelyingPartyRegistrationRepository(two);

@@ -42,7 +42,7 @@ public class SecurityConfiguration {
 				new OpenSamlMetadataResolver());
 		// @formatter:off
 		http
-			.authorizeHttpRequests((authorize) -> authorize
+			.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/error").permitAll()
 				.anyRequest().authenticated()
 			)

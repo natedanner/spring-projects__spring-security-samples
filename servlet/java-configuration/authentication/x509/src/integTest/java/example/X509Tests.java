@@ -87,7 +87,7 @@ public class X509Tests {
 			ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
 			RestTemplate rest = new RestTemplate(requestFactory);
 			ResponseEntity<String> responseEntity = rest.getForEntity(getServerUrl() + "/me", String.class);
-			assertThat(responseEntity).extracting((result) -> result.getStatusCode().is2xxSuccessful()).isEqualTo(true);
+			assertThat(responseEntity).extracting(result -> result.getStatusCode().is2xxSuccessful()).isEqualTo(true);
 		}
 
 	}

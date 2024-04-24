@@ -48,7 +48,7 @@ public class SecurityConfiguration {
 	SecurityFilterChain app(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 						.anyRequest().authenticated()
 				)
 				.saml2Login(Customizer.withDefaults())
@@ -64,9 +64,9 @@ public class SecurityConfiguration {
 			.fromMetadataLocation("https://dev-05937739.okta.com/app/exk46xofd8NZvFCpS5d7/sso/saml/metadata")
 			.registrationId("one")
 			.decryptionX509Credentials(
-					(c) -> c.add(Saml2X509Credential.decryption(this.privateKey, relyingPartyCertificate())))
+					c -> c.add(Saml2X509Credential.decryption(this.privateKey, relyingPartyCertificate())))
 			.signingX509Credentials(
-					(c) -> c.add(Saml2X509Credential.signing(this.privateKey, relyingPartyCertificate())))
+					c -> c.add(Saml2X509Credential.signing(this.privateKey, relyingPartyCertificate())))
 			.singleLogoutServiceLocation(
 					"https://dev-05937739.okta.com/app/dev-05937739_springgsecuritysaml2idp_1/exk46xofd8NZvFCpS5d7/slo/saml")
 			.singleLogoutServiceResponseLocation("http://localhost:8080/logout/saml2/slo")

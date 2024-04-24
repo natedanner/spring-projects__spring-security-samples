@@ -47,14 +47,14 @@ public class SecurityConfiguration {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
-			.authorizeHttpRequests((authorize) -> authorize
+			.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/error").permitAll()
 				.anyRequest().authenticated()
 			)
-			.saml2Login((saml2) -> saml2.loginProcessingUrl("/saml/SSO"))
-			.saml2Logout((saml2) -> saml2.logoutRequest((request) -> request.logoutUrl("/saml/logout")))
-			.saml2Logout((saml2) -> saml2.logoutResponse((response) -> response.logoutUrl("/saml/SingleLogout")))
-			.saml2Metadata((saml2) -> saml2.metadataUrl("/saml/metadata"));
+			.saml2Login(saml2 -> saml2.loginProcessingUrl("/saml/SSO"))
+			.saml2Logout(saml2 -> saml2.logoutRequest(request -> request.logoutUrl("/saml/logout")))
+			.saml2Logout(saml2 -> saml2.logoutResponse(response -> response.logoutUrl("/saml/SingleLogout")))
+			.saml2Metadata(saml2 -> saml2.metadataUrl("/saml/metadata"));
 		// @formatter:on
 		return http.build();
 	}
@@ -68,12 +68,12 @@ public class SecurityConfiguration {
 		return new InMemoryRelyingPartyRegistrationRepository(RelyingPartyRegistrations
 			.collectionFromMetadataLocation(registration.getAssertingparty().getMetadataUri())
 			.stream()
-			.map((builder) -> builder.registrationId(UUID.randomUUID().toString())
+			.map(builder -> builder.registrationId(UUID.randomUUID().toString())
 				.entityId(registration.getEntityId())
 				.assertionConsumerServiceLocation(registration.getAcs().getLocation())
 				.singleLogoutServiceLocation(registration.getSinglelogout().getUrl())
 				.singleLogoutServiceResponseLocation(registration.getSinglelogout().getResponseUrl())
-				.signingX509Credentials((credentials) -> credentials.add(signing))
+				.signingX509Credentials(credentials -> credentials.add(signing))
 				.build())
 			.collect(Collectors.toList()));
 	}

@@ -70,7 +70,7 @@ public class RefreshableRelyingPartyRegistrationRepository
 	private void fetchMetadata(String registrationId, Saml2RelyingPartyProperties.Registration registration) {
 		RelyingPartyRegistration relyingPartyRegistration = RelyingPartyRegistrations
 			.fromMetadataLocation(registration.getAssertingparty().getMetadataUri())
-			.signingX509Credentials((credentials) -> registration.getSigning()
+			.signingX509Credentials(credentials -> registration.getSigning()
 				.getCredentials()
 				.stream()
 				.map(this::asSigningCredential)

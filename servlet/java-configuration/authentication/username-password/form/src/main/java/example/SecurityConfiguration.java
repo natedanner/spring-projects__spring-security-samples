@@ -34,10 +34,10 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
-				.authorizeRequests((authorize) -> authorize
+				.authorizeRequests(authorize -> authorize
 						.anyRequest().authenticated()
 				)
-				.formLogin((form) -> form
+				.formLogin(form -> form
 						.loginPage("/login")
 						.permitAll()
 				);

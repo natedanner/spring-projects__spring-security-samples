@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class IndexPage {
 
-	private WebDriver driver;
+	private final WebDriver driver;
 
 	private WebElement logout;
 

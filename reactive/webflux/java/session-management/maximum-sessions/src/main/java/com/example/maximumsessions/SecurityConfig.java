@@ -53,10 +53,10 @@ public class SecurityConfig {
 			ServerMaximumSessionsExceededHandler maximumSessionsExceededHandler) {
 		// @formatter:off
 		http
-				.authorizeExchange((exchanges) -> exchanges.anyExchange().authenticated())
+				.authorizeExchange(exchanges -> exchanges.anyExchange().authenticated())
 				.formLogin(Customizer.withDefaults())
-				.sessionManagement((sessions) -> sessions
-						.concurrentSessions((concurrency) -> concurrency
+				.sessionManagement(sessions -> sessions
+						.concurrentSessions(concurrency -> concurrency
 							.maximumSessions(maxSessions())
 							.maximumSessionsExceededHandler(maximumSessionsExceededHandler))
 				);
@@ -90,7 +90,7 @@ public class SecurityConfig {
 	}
 
 	private SessionLimit maxSessions() {
-		return (authentication) -> {
+		return authentication -> {
 			if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_UNLIMITED_SESSIONS"))) {
 				return Mono.empty();
 			}

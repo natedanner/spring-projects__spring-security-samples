@@ -34,9 +34,9 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((authorizeRequests) -> authorizeRequests.anyRequest().authenticated())
+		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
 			.formLogin(withDefaults())
-			.sessionManagement((sessionManagement) -> sessionManagement.maximumSessions(1));
+			.sessionManagement(sessionManagement -> sessionManagement.maximumSessions(1));
 		return http.build();
 	}
 

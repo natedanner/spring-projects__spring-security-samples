@@ -48,7 +48,7 @@ public class OAuth2ResourceServerControllerTests {
 	void indexGreetsAuthenticatedUser() throws Exception {
 		// @formatter:off
 		SecurityMockMvcRequestPostProcessors.OpaqueTokenRequestPostProcessor token = opaqueToken()
-				.attributes((a) -> a.put("sub", "ch4mpy"));
+				.attributes(a -> a.put("sub", "ch4mpy"));
 		this.mvc.perform(get("/").with(token))
 				.andExpect(content().string(is("Hello, ch4mpy!")));
 		// @formatter:on
@@ -58,12 +58,12 @@ public class OAuth2ResourceServerControllerTests {
 	void messageCanBeReadWithScopeMessageReadAuthority() throws Exception {
 		// @formatter:off
 		SecurityMockMvcRequestPostProcessors.OpaqueTokenRequestPostProcessor token = opaqueToken()
-				.attributes((a) -> a.put("scope", "message:read"));
+				.attributes(a -> a.put("scope", "message:read"));
 		this.mvc.perform(get("/message").with(token))
 				.andExpect(content().string(is("secret message")));
 
 		this.mvc.perform(get("/message")
-				.with(jwt().authorities(new SimpleGrantedAuthority(("SCOPE_message:read")))))
+				.with(jwt().authorities(new SimpleGrantedAuthority("SCOPE_message:read"))))
 				.andExpect(content().string(is("secret message")));
 		// @formatter:on
 	}

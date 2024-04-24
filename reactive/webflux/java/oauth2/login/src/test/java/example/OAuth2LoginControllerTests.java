@@ -62,11 +62,11 @@ public class OAuth2LoginControllerTests {
 			.bindToController(this.controller)
 			.apply(springSecurity())
 			.webFilter(new SecurityContextServerWebExchangeWebFilter())
-			.argumentResolvers((c) -> {
+			.argumentResolvers(c -> {
 				c.addCustomResolver(new AuthenticationPrincipalArgumentResolver(new ReactiveAdapterRegistry()));
 				c.addCustomResolver(new OAuth2AuthorizedClientArgumentResolver(this.clientRegistrationRepository, authorizedClientRepository));
 			})
-			.viewResolvers((c) -> c.viewResolver(this.viewResolver))
+			.viewResolvers(c -> c.viewResolver(this.viewResolver))
 			.build();
 		// @formatter:on
 	}

@@ -123,8 +123,7 @@ public class MockWebServerPropertySource extends PropertySource<MockWebServer> i
 		if (logger.isTraceEnabled()) {
 			logger.trace("Looking up the url for '" + name + "'");
 		}
-		String url = getUrl();
-		return url;
+		return getUrl();
 	}
 
 	@Override
@@ -171,10 +170,10 @@ public class MockWebServerPropertySource extends PropertySource<MockWebServer> i
 		if ("/introspect".equals(request.getPath())) {
 			// @formatter:off
 			return Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION))
-					.filter((authorization) -> isAuthorized(authorization, "client", "secret"))
-					.map((authorization) -> parseBody(request.getBody()))
-					.map((parameters) -> parameters.get("token"))
-					.map((token) -> {
+					.filter(authorization -> isAuthorized(authorization, "client", "secret"))
+					.map(authorization -> parseBody(request.getBody()))
+					.map(parameters -> parameters.get("token"))
+					.map(token -> {
 						if ("00ed5855-1869-47a0-b0c9-0f3ce520aee7".equals(token)) {
 							return NO_SCOPES_RESPONSE;
 						}
@@ -200,8 +199,8 @@ public class MockWebServerPropertySource extends PropertySource<MockWebServer> i
 	private Map<String, Object> parseBody(Buffer body) {
 		// @formatter:off
 		return Stream.of(body.readUtf8().split("&"))
-				.map((parameter) -> parameter.split("="))
-				.collect(Collectors.toMap((parts) -> parts[0], (parts) -> parts[1]));
+				.map(parameter -> parameter.split("="))
+				.collect(Collectors.toMap(parts -> parts[0], parts -> parts[1]));
 		// @formatter:on
 	}
 

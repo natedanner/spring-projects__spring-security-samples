@@ -322,10 +322,10 @@ public class OAuth2LoginApplicationTests {
 	private HtmlAnchor getClientAnchorElement(HtmlPage page, ClientRegistration clientRegistration) {
 		Optional<HtmlAnchor> clientAnchorElement = page.getAnchors()
 			.stream()
-			.filter((e) -> e.asNormalizedText().equals(clientRegistration.getClientName()))
+			.filter(e -> e.asNormalizedText().equals(clientRegistration.getClientName()))
 			.findFirst();
 
-		return (clientAnchorElement.orElse(null));
+		return clientAnchorElement.orElse(null);
 	}
 
 	private WebResponse followLinkDisableRedirects(HtmlAnchor anchorElement) throws Exception {
@@ -351,12 +351,12 @@ public class OAuth2LoginApplicationTests {
 		public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeHttpRequests((authorize) -> authorize
+					.authorizeHttpRequests(authorize -> authorize
 							.anyRequest().authenticated()
 					)
-					.oauth2Login((oauth2) -> oauth2
-							.tokenEndpoint((token) -> token.accessTokenResponseClient(mockAccessTokenResponseClient()))
-							.userInfoEndpoint((userInfo) -> userInfo.userService(mockUserService()))
+					.oauth2Login(oauth2 -> oauth2
+							.tokenEndpoint(token -> token.accessTokenResponseClient(mockAccessTokenResponseClient()))
+							.userInfoEndpoint(userInfo -> userInfo.userService(mockUserService()))
 					);
 			// @formatter:on
 			return http.build();

@@ -28,7 +28,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 	public SecurityContext createSecurityContext(WithMockCustomUser mockCustomUser) {
 		String username = mockCustomUser.email();
 		// a stub CustomUserRepository that returns the user defined in the annotation
-		CustomUserRepository userRepository = (email) -> new CustomUser(mockCustomUser.id(), username, "");
+		CustomUserRepository userRepository = email -> new CustomUser(mockCustomUser.id(), username, "");
 		// CustomUserRepositoryUserDetailsService ensures our UserDetails is consistent
 		// with our production application
 		CustomUserRepositoryUserDetailsService userDetailsService = new CustomUserRepositoryUserDetailsService(

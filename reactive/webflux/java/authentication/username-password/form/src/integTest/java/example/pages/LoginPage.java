@@ -33,12 +33,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class LoginPage {
 
-	private WebDriver driver;
+	private final WebDriver driver;
 
 	@FindBy(css = "div[role=alert]")
 	private List<WebElement> alert;
 
-	private LoginForm loginForm;
+	private final LoginForm loginForm;
 
 	public LoginPage(WebDriver webDriver) {
 		this.driver = webDriver;

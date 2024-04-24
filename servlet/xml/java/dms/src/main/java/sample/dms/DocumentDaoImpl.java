@@ -58,13 +58,13 @@ public class DocumentDaoImpl extends JdbcDaoSupport implements DocumentDao {
 		Assert.isNull(element.getId(), "Element has previously been saved");
 		if (element instanceof Directory) {
 			Directory directory = (Directory) element;
-			Long parentId = (directory.getParent() == null) ? null : directory.getParent().getId();
+			Long parentId = directory.getParent() == null ? null : directory.getParent().getId();
 			getJdbcTemplate().update(INSERT_INTO_DIRECTORY, new Object[] { directory.getName(), parentId });
 			FieldUtils.setProtectedFieldValue("id", directory, obtainPrimaryKey());
 		}
 		else if (element instanceof File) {
 			File file = (File) element;
-			Long parentId = (file.getParent() == null) ? null : file.getParent().getId();
+			Long parentId = file.getParent() == null ? null : file.getParent().getId();
 			getJdbcTemplate().update(INSERT_INTO_FILE, new Object[] { file.getName(), file.getContent(), parentId });
 			FieldUtils.setProtectedFieldValue("id", file, obtainPrimaryKey());
 		}

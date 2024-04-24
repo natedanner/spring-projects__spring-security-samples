@@ -133,7 +133,7 @@ public class DmsIntegrationTests {
 		// filtering
 		Directory nonHomeConfidentialDir = null;
 		for (AbstractElement nonHomeElement : nonHomeElements) {
-			if (nonHomeElement.getName().equals("confidential")) {
+			if ("confidential".equals(nonHomeElement.getName())) {
 				nonHomeConfidentialDir = (Directory) nonHomeElement;
 			}
 		}
